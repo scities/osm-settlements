@@ -28,11 +28,9 @@ with open(path, "r") as c_file, GzipFile(fileobj=c_file) as xml_file:
             for child in elem: 
                 if child.tag == 'tag' and child.attrib != {}:
                     if child.attrib['k'] == 'name':
-                        name = unicode(child.attrib['v'],
-                                        'utf-8')
+                        name = unicode(child.attrib['v'])
                     if child.attrib['k'] == 'place':
-                        place = unicode(child.attrib['v'],
-                                        'utf-8')
+                        place = unicode(child.attrib['v'])
             if place:
                 if place not in places:
                     places[place] = {}
@@ -46,6 +44,6 @@ with open(path, "r") as c_file, GzipFile(fileobj=c_file) as xml_file:
 for place_type in places:
     with open("extr/%s.csv"%place_type, "w") as output:
         for name,coords in places[place_type].iteritems():
-            output.write("%s\t%s\t%s\n"%(name,
+            output.write("%s\t%s\t%s\n"%(name.encode('utf8'),
                                         coords['lat'],
                                         coords['lon']))
