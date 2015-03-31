@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 """parser.py
 
 Script to parse the planet.osm file (or any .osm file) to get a list of all cities, towns,
@@ -36,7 +36,8 @@ with open(path, "r") as c_file, GzipFile(fileobj=c_file) as xml_file:
                     places[place] = {}
                 places[place][name] = {'lat':elem.attrib['lat'],
                                        'lon':elem.attrib['lon']} 
-
+        if action=='end' and elem.tag=='node':
+            elem.clear()
 
 #
 # Save the data
