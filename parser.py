@@ -6,17 +6,23 @@ villages in the worlds and their coordinates.
 """
 import xml.etree.cElementTree as et
 from gzip import GzipFile
+from bz2 import BZ2File
 
 __authors__ = """\n""".join(["Rémi Louf <remi.louf@scities>"])
 
+
+
 ## Feed a gzipped osm file
-path = "data/brussels_belgium.osm.gz"
+path = "data/africa-latest.osm.bz2"
+types = ['city', 'town', 'village']
+
+
 
 #
 # Parse the OSM file
 #
 places = {}
-with open(path, "r") as c_file, GzipFile(fileobj=c_file) as xml_file:
+with BZ2File(path) as xml_file:
     parser = et.iterparse(xml_file)
     for action, elem in parser:
         if elem.tag=="way":
@@ -31,7 +37,8 @@ with open(path, "r") as c_file, GzipFile(fileobj=c_file) as xml_file:
                         name = unicode(child.attrib['v'])
                     if child.attrib['k'] == 'place':
                         place = unicode(child.attrib['v'])
-            if place:
+            # If place type corresponds to desired ones, save
+            if place in types:
                 if place not in places:
                     places[place] = {}
                 places[place][name] = {'lat':elem.attrib['lat'],
