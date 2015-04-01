@@ -3,17 +3,24 @@
 
 Script to parse the planet.osm file (or any .osm file) to get a list of all cities, towns,
 villages in the worlds and their coordinates.
+
+If you want to understand how lxml's iterparse works, check Liza Daly's post at http://www.ibm.com/developerworks/xml/library/x-hiperfparse/
 """
-import xml.etree.cElementTree as et
-from gzip import GzipFile
+from lxml import etree as et
 from bz2 import BZ2File
+import gc
+
 
 __authors__ = """\n""".join(["Rémi Louf <remi.louf@scities>"])
+__copyright__ = "2015, Scities"
+__license__ = "GPL v2"
 
 
 
-## Feed a gzipped osm file
-path = "data/africa-latest.osm.bz2"
+#
+# Parameters
+#
+path = "raw/planet.osm.bz2"
 types = ['city', 'town', 'village']
 
 
@@ -23,28 +30,38 @@ types = ['city', 'town', 'village']
 #
 places = {}
 with BZ2File(path) as xml_file:
-    parser = et.iterparse(xml_file)
-    for action, elem in parser:
-        if elem.tag=="way":
-            elem.clear()
-        if elem.tag=="relation":
-            elem.clear()
-        if elem.tag=="node":
-            place = False 
-            for child in elem: 
-                if child.tag == 'tag' and child.attrib != {}:
-                    if child.attrib['k'] == 'name':
-                        name = unicode(child.attrib['v'])
-                    if child.attrib['k'] == 'place':
-                        place = unicode(child.attrib['v'])
-            # If place type corresponds to desired ones, save
-            if place in types:
-                if place not in places:
-                    places[place] = {}
-                places[place][name] = {'lat':elem.attrib['lat'],
-                                       'lon':elem.attrib['lon']} 
-        if action=='end' and elem.tag=='node':
-            elem.clear()
+    parser = et.iterparse(xml_file, events=('end',), tag='node')
+    for events, elem in parser:
+        place = False 
+        lat = elem.attrib['lat']
+        lon = elem.attrib['lon']
+
+        ## Check the nodes' attributes
+        for child in elem: 
+            if child.tag == 'tag' and child.attrib != {}:
+                if child.attrib['k'] == 'name':
+                    name = unicode(child.attrib['v'])
+                if child.attrib['k'] == 'place':
+                    place = unicode(child.attrib['v'])
+        if place in types:
+            if place not in places:
+                places[place] = {}
+            places[place][name] = {'lat':lat,
+                                   'lon':lon} 
+            
+
+        ## Do some cleaning
+        # Get rid of that element
+        elem.clear()
+
+        # Also eliminate now-empty references from the root node to node        
+        while elem.getprevious() is not None:
+            del elem.getparent()[0]
+
+        # Garbage collect
+        gc.collect()
+
+
 
 #
 # Save the data
