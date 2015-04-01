@@ -2,17 +2,34 @@
 
 Parse the OSM planet.osm to get a list of cities with their coordinates.
 
+## Dependencies
+
+* Python 2.7
+* lxml
+
 ## Use
 
-In the directory, type 'make' in your console. This will download the current
-planet.osm file, parse it to find all nodes marked as a city, a town or a
-village and their coordinates, and save as a csv file.
+Open your console, go to the directory where you cloned the repository and type
 
-Type 'make clean' to delete the data (downloaded and extracted).
+```
+make 
+```
+
+This will download the current planet.osm file, parse it to find all nodes
+marked as a city, a town or a village and their coordinates, and save as a csv
+file.
+
+Once the data extracted and **transfered to another folder** type 
+
+```
+make clean
+``` 
+
+to delete **all** data (goes back to the initial state).
 
 ## How long does it take?
 
-Including download
+Testing, will let you know as soon as it is done parsing :) 
 
 ## License and author
 
