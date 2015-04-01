@@ -1,6 +1,6 @@
-# OSM Locations
+# OSM Settlements
 
-Parse the OSM planet.osm to get a list of cities with their coordinates.
+Parse the OSM planet.osm to get a list of settlements with their coordinates. We define settlements as the nodes tagged as a 'city', a 'town' or a 'village'. See the [OSM Wiki](http://wiki.openstreetmap.org/wiki/Key:place) for more information about the *place* tag. 
 
 ## Dependencies
 
