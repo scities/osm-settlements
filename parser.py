@@ -20,7 +20,7 @@ __license__ = "GPL v2"
 #
 # Parameters
 #
-path = "raw/planet.osm.bz2"
+path = "data/planet-latest.osm.bz2"
 types = ['city', 'town', 'village']
 
 
@@ -30,25 +30,29 @@ types = ['city', 'town', 'village']
 #
 places = {}
 with BZ2File(path) as xml_file:
-    parser = et.iterparse(xml_file, events=('end',), tag='node')
+    parser = et.iterparse(xml_file, events=('end',))
     for events, elem in parser:
-        place = False 
-        lat = elem.attrib['lat']
-        lon = elem.attrib['lon']
 
-        ## Check the nodes' attributes
-        for child in elem: 
-            if child.tag == 'tag' and child.attrib != {}:
-                if child.attrib['k'] == 'name':
-                    name = unicode(child.attrib['v'])
-                if child.attrib['k'] == 'place':
-                    place = unicode(child.attrib['v'])
-        if place in types:
-            if place not in places:
-                places[place] = {}
-            places[place][name] = {'lat':lat,
-                                   'lon':lon} 
-            
+        if elem.tag == "tag":
+            continue
+        if elem.tag == "node":
+            place = False 
+            lat = elem.attrib['lat']
+            lon = elem.attrib['lon']
+
+            ## Check the nodes' attributes
+            for child in elem.iterchildren(): 
+                if child.tag == 'tag' and child.attrib != {}:
+                    if child.attrib['k'] == 'name':
+                        name = unicode(child.attrib['v'])
+                    if child.attrib['k'] == 'place':
+                        place = unicode(child.attrib['v'])
+            if place in types:
+                if place not in places:
+                    places[place] = {}
+                places[place][name] = {'lat':lat,
+                                       'lon':lon} 
+                
 
         ## Do some cleaning
         # Get rid of that element
@@ -59,7 +63,7 @@ with BZ2File(path) as xml_file:
             del elem.getparent()[0]
 
         # Garbage collect
-        gc.collect()
+        # gc.collect()
 
 
 
