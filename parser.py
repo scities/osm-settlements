@@ -6,9 +6,9 @@ villages in the worlds and their coordinates.
 
 If you want to understand how lxml's iterparse works, check Liza Daly's post at http://www.ibm.com/developerworks/xml/library/x-hiperfparse/
 """
+import sys
 from lxml import etree as et
 from bz2 import BZ2File
-import gc
 
 
 __authors__ = """\n""".join(["Rémi Louf <remi.louf@scities>"])
@@ -20,7 +20,8 @@ __license__ = "GPL v2"
 #
 # Parameters
 #
-path = "data/planet-latest.osm.bz2"
+datapath = sys.arv[1] # Path to planet.osm passed as argument
+path = str(datapath) + "/planet-latest.osm.bz2"
 types = ['city', 'town', 'village']
 
 
