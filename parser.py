@@ -7,6 +7,7 @@ villages in the worlds and their coordinates.
 If you want to understand how lxml's iterparse works, check Liza Daly's post at http://www.ibm.com/developerworks/xml/library/x-hiperfparse/
 """
 import sys
+import os
 from lxml import etree as et
 from bz2 import BZ2File
 
@@ -16,11 +17,19 @@ __copyright__ = "2015, Scities"
 __license__ = "GPL v2"
 
 
+#
+# Sanity checks
+#
+
 ## Check if path to .osm file has been passed as an argument
 if not len(sys.argv) > 1:
     raise IOError("Please pass the path to the planet.osm as an argument")
 else:
     path = sys.argv[1] 
+
+## Check that destination folder exists
+if not os.path.isdir("extr"):
+    os.path.mkdir("extr")
 
 
 #
