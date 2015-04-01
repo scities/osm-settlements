@@ -31,7 +31,7 @@ to delete **all** data (goes back to the initial state).
 
 ### Parse other osm files
 
-If for a reason or another you do not want to parse an extract of the planet.osm
+If for a reason or another you want to only parse an extract of the planet.osm
 (or if you already have the planet.osm on your computer), go to the directory where you cloned the repository and type
 
 ```
