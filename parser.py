@@ -16,12 +16,16 @@ __copyright__ = "2015, Scities"
 __license__ = "GPL v2"
 
 
+## Check if path to .osm file has been passed as an argument
+if not len(sys.argv) > 1:
+    raise IOError("Please pass the path to the planet.osm as an argument")
+else:
+    path = sys.argv[1] 
+
 
 #
 # Parameters
 #
-datapath = sys.arv[1] # Path to planet.osm passed as argument
-path = str(datapath) + "/planet-latest.osm.bz2"
 types = ['city', 'town', 'village']
 
 

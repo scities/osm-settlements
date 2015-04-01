@@ -24,7 +24,7 @@ raw/planet-latest.osm.gz2: initialise
 
 ## Parse for settlements
 parse: $(DATADIR)/planet-latest.osm.gz2
-	python parser.py $(DATADIR)
+	python parser.py $(DATADIR)/planet-latest.osm.gz2
 
 
 
