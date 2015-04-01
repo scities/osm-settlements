@@ -11,7 +11,7 @@ initialise:
 raw/planet.osm.gz2: initialise
 	curl -o raw/planet-latest.osm.bz2 http://ftp5.gwdg.de/pub/misc/openstreetmap/planet.openstreetmap.org/planet/planet-latest.osm.bz2
 	curl -o raw/planet-latest.osm.bz2.md5 http://ftp5.gwdg.de/pub/misc/openstreetmap/planet.openstreetmap.org/planet/planet-latest.osm.bz2.md5
-	md5sum -c raw/planet-latest.osm.bz2.md5 $DIR/raw/planet-latest.osm.bz2
+	md5sum -c raw/planet-latest.osm.bz2.md5 raw/planet-latest.osm.bz2
 
 ## Parse for settlements
 parse: raw/planet.osm.gz2
