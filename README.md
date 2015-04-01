@@ -9,6 +9,8 @@ Parse the OSM planet.osm to get a list of settlements with their coordinates. We
 
 ## Use
 
+### Parse the planet.osm
+
 Open your console, go to the directory where you cloned the repository and type
 
 ```
@@ -26,6 +28,15 @@ make clean
 ``` 
 
 to delete **all** data (goes back to the initial state).
+
+### Parse other osm files
+
+If for a reason or another you do not want to parse an extract of the planet.osm
+(or if you already have the planet.osm on your computer), go to the directory where you cloned the repository and type
+
+```
+python parse.py /path/to/extract.osm.bz2
+```
 
 ## How long does it take?
 
