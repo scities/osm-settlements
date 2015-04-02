@@ -6,6 +6,7 @@ Parse the OSM planet.osm to get a list of settlements with their coordinates. We
 
 * Python 2.7
 * lxml
+* bz2file
 
 ## Use
 
@@ -31,12 +32,14 @@ to delete **all** data (goes back to the initial state).
 
 ### Parse other osm files
 
-If for a reason or another you want to only parse an extract of the planet.osm
-(or if you already have the planet.osm on your computer), go to the directory where you cloned the repository and type
+If you want to parse any OSM file (planet, extract) already on your hard drive,
+go to the directory where you cloned the repository and type
 
 ```
-python parse.py /path/to/extract.osm.bz2
+python parse.py /path/to/extract.osm.bz2 (/path/to/extracted/data)
 ```
+
+if not specified, the data will be extracted in a new 'extr' directory.
 
 ## How long does it take?
 
