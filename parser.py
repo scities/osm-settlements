@@ -22,8 +22,8 @@ except ImportError:
 
 
 
-__authors__ = """\n""".join(["Rémi Louf <remi.louf@scities>"])
-__copyright__ = "2015, Scities"
+__authors__ = """\n""".join(["Rémi Louf <remi.louf@sciti.es>"])
+__copyright__ = "2015, Rémi Louf"
 __license__ = "GPL v2"
 
 
