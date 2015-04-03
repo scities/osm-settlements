@@ -43,7 +43,7 @@ if not specified, the data will be extracted in a new 'extr' directory.
 
 ## How long does it take?
 
-Testing, will let you know as soon as it is done parsing :) 
+Including download, this takes roughly *14 hours* on an Intel Xeon @ 2.60GHz.
 
 ## License and author
 
